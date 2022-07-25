@@ -1,3 +1,7 @@
+output "ssh_private_key" {
+  value = tls_private_key.ssh_key.private_key_openssh
+}
+
 output "do_ssh_key_id" {
   description = "ID of the created DigitalOcean SSH key."
   value       = digitalocean_ssh_key.ssh_key.id
