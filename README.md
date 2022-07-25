@@ -13,6 +13,12 @@ cd terraform
 terraform init
 ```
 
+#### 3. Create GitHub token and add it to terraform cloud
+
+Create a GitHub token
+
+"Variables" tab, "Add variable", select "Environment variable", with `GITHUB_TOKEN` as key and the token as value.
+
 #### 3. Import the repository into terraform state
 
 ```bash
@@ -37,7 +43,10 @@ terraform apply -var-file=staging.tfvars
 
 ##### Staging
 
-Go to the "Settings" tab in the repository, then "Environments" on the left menu, and there go to "New environment" and name it `staging`. From the page of the created environment, go to "Add secret" and create a secret named `DROPLET_IPV4` with the IP address of the droplet created by `terraform apply`, which can be obtained as in `terraform output droplet_ipv4` (remember to ommit the quotes when providing the secret value).
+Go to the "Settings" tab in the repository, then "Environments" on the left menu, and there go to "New environment" and name it `staging`. From the page of the created environment, go to "Add secret" and create two secrets with the names and values as follows:
+
+* `DROPLET_IPV4`: with the IP address of the droplet created by `terraform apply` as value, which can be obtained as in `terraform output droplet_ipv4` (remember to ommit the quotes when providing the secret value).
+* `TFVARS`: with the base64-encoded `staging.tfvars` as value, which can be obtained as in `base64 staging.tfvars`.
 
 #### 6. Branch protection rules
 
